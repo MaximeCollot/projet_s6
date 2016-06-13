@@ -38,13 +38,6 @@ public abstract class AbstractPiece implements Pieces {
 	}
 
 	@Override
-	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk,
-			boolean isCastlingPossible) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean move(int xFinal, int yFinal) {
 		boolean isCatchOk = true; //Tester si y'a une pièce
 		if (isMoveOk(xFinal, yFinal, isCatchOk, false)) {

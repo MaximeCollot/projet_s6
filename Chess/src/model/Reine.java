@@ -7,4 +7,21 @@ public class Reine extends AbstractPiece {
 		this.name = "Dame";
 	}
 
+	@Override
+	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk,
+			boolean isCastlingPossible) {
+		if (isCatchOk){
+			return true;
+		}else{
+			if ((Math.abs(xFinal)-this.coord.x)==(Math.abs(yFinal)-this.coord.y)) {
+				return true;
+			}else if ((xFinal==this.getX() || yFinal==this.getY())&& !(xFinal==this.getX() && yFinal==this.getY())){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+	
+
 }
