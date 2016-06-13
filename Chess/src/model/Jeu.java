@@ -62,9 +62,12 @@ public class Jeu extends java.lang.Object implements Game{
 	}
 	
 	@Override
-	public java.lang.String toString(){
-		return null;
-		//TODO
+	public String toString(){
+		String message = "";
+		for (Pieces piece  : pieces){
+			message += piece.toString() + "\n \t";
+		}
+		return message;
 	}
 	public Couleur getPieceColor(int x,int y){
 		for (Pieces piece  : pieces)
