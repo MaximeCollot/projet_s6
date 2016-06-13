@@ -14,8 +14,11 @@ public class Tour extends AbstractPiece {
 		if (isCastlingPossible && isCatchOk) {
 			if (xFinal==this.getX() || yFinal==this.getY())
 					return true;
+			else
+				return false;
+		}else{		
+			return false;
 		}
-		return false;
 	 }
      
 
