@@ -4,10 +4,8 @@ public class Tour extends AbstractPiece {
 	
 	
 	Tour(Couleur couleur, Coord coord) {
-		super(Couleur couleur, Coord coord);
-		this.name = 'Tour';
-		
-		
+		super(couleur, coord);
+		this.name = "Tour";		
 	}
 	
 	
