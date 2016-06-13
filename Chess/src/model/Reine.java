@@ -13,10 +13,14 @@ public class Reine extends AbstractPiece {
 		if (isCatchOk){
 			return true;
 		}else{
-			if ((Math.abs(xFinal)-this.coord.x)==(Math.abs(yFinal)-this.coord.y)) {
-				return true;
-			}else if ((xFinal==this.getX() || yFinal==this.getY())&& !(xFinal==this.getX() && yFinal==this.getY())){
-				return true;
+			if (VerifBord.isOk(xFinal, yFinal)){
+				if (Math.abs(xFinal-this.coord.x)==Math.abs(yFinal-this.coord.y)) {
+					return true;
+				}else if ((xFinal==this.getX() || yFinal==this.getY())&& !(xFinal==this.getX() && yFinal==this.getY())){
+					return true;
+				}else{
+					return false;
+				}
 			}else{
 				return false;
 			}
