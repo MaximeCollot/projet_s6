@@ -8,7 +8,8 @@ public class Jeu extends java.lang.Object implements Game{
 	List<Pieces> pieces;
 	
 	public Jeu (Couleur couleur){
-		this.pieces = ChessPiecesFactory.newPieces(couleur);		
+		this.pieces = ChessPiecesFactory.newPieces(couleur);
+		System.out.print("ok");
 	}
 
 	@Override
