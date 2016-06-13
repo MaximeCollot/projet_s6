@@ -37,15 +37,13 @@ public abstract class AbstractPiece implements Pieces {
 		return this.coord.y;
 	}
 
+
 	@Override
 	public boolean move(int xFinal, int yFinal) {
-		boolean isCatchOk = true; //Tester si y'a une pièce
-		if (isMoveOk(xFinal, yFinal, isCatchOk, false)) {
 			this.coord = new Coord(xFinal, yFinal);
 			return true;
-		}else{
-			return false;
-		}
+			// avec les parametre données, on ne peux pas faire de test isMoveOk, sans utilisé des parametre en dure
+			// on testera isMoveOk avant l'utilisation de move() dans la classe Jeu
 	}
 	
 	public String toString() {
