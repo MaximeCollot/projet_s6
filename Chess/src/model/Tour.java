@@ -18,6 +18,9 @@ public class Tour extends AbstractPiece {
 		if (isCatchOk) {
 			// pas de moficiation si il peut Catch dans le move
 		}
+		
+		if (!VerifBord.isOk(xFinal, yFinal))
+			return false;
 		if ((xFinal==this.getX() || yFinal==this.getY())&& !(xFinal==this.getX() && yFinal==this.getY()))
 					return true;
 			else

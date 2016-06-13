@@ -6,11 +6,12 @@ public class Pion extends AbstractPiece {
 		this.name="Pion";
 	}
 	
+	@Override
 	public boolean isMoveOk(int xFinal, int yFinal,boolean isCatchOk,boolean isCastlingPossible)
 	{
 		//pas de gestion de grand roque avec les pions
 		
-		if (!VerifBord.isOk)
+		if (!VerifBord.isOk(xFinal, yFinal))
 			return false;
 		if (xFinal==this.getX() && yFinal==this.getY())
 			//meme position interdite
@@ -31,8 +32,7 @@ public class Pion extends AbstractPiece {
 			//deplacement du départ (possibilité d'avancer de 2 cases)
 			if (yFinal==(this.getY())&&(xFinal==(this.getX()+2) || (xFinal==(this.getX()-1))))
 				return true;
-		else
-			return false;
+		return false;
 	 	}
 	
 }
