@@ -13,10 +13,7 @@ public class Tour extends AbstractPiece {
 	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible){
 		if (isCastlingPossible) {
 			//gestion du Castling 
-			//<TODO>
-		}
-		if (isCatchOk) {
-			// pas de moficiation si il peut Catch dans le move
+			//TODO
 		}
 		
 		if (!VerifBord.isOk(xFinal, yFinal))

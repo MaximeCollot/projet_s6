@@ -8,14 +8,6 @@ public class Fou extends AbstractPiece{
 	}
 	@Override
 	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible){
-		if (isCastlingPossible) {
-			//gestion du Castling 
-			//<TODO>
-		}
-		if (isCatchOk) {
-			// pas de moficiation si il peut Catch dans le move
-		}
-		
 		if (!VerifBord.isOk(xFinal, yFinal))
 			//verification dans l'echiquier
 			return false;
