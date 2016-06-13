@@ -11,15 +11,16 @@ public class Tour extends AbstractPiece {
 	
 	@Override
 	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible){
-		if (isCastlingPossible && isCatchOk) {
-			if (xFinal==this.getX() || yFinal==this.getY())
+		if (isCastlingPossible) {
+			//gestion du Castling 
+			//<TODO>
+		}
+		if (isCatchOk) {
+			// pas de moficiation si il peut Catch dans le move
+		}
+		if ((xFinal==this.getX() || yFinal==this.getY())&& !(xFinal==this.getX() && yFinal==this.getY()))
 					return true;
 			else
 				return false;
-		}else{		
-			return false;
 		}
-	 }
-     
-
 }
