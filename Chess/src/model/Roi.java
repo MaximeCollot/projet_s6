@@ -10,7 +10,7 @@ public class Roi extends AbstractPiece {
 	@Override
 	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk,
 			boolean isCastlingPossible) {
-		if (isCastlingPossible || isCatchOk){
+		if (isCastlingPossible){
 			return true;
 		}else{
 			if (((xFinal == this.coord.x++)||(xFinal == this.coord.x--)||(xFinal == this.coord.x))&&((yFinal == this.coord.y++)||(yFinal == this.coord.y--)||(yFinal == this.coord.y))&&VerifBord.isOk(xFinal,yFinal)){
