@@ -8,9 +8,7 @@ public class Pion extends AbstractPiece {
 	
 	@Override
 	public boolean isMoveOk(int xFinal, int yFinal,boolean isCatchOk,boolean isCastlingPossible)
-	{
-		//pas de gestion de grand roque avec les pions
-		
+	{	
 		if (!VerifBord.isOk(xFinal, yFinal))
 			return false;
 		if (xFinal==this.getX() && yFinal==this.getY())
@@ -28,6 +26,7 @@ public class Pion extends AbstractPiece {
 		else if (xFinal==this.getX() && yFinal==(this.getY()+1))
 			// deplacement normal en avençant
 				return true;
+		
 		else if (this.getY()==1)
 			//deplacement du départ (possibilité d'avancer de 2 cases)
 			if (yFinal==(this.getY())&&(xFinal==(this.getX()+2) || (xFinal==(this.getX()-1))))
