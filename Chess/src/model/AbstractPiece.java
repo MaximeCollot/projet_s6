@@ -1,6 +1,15 @@
 package model;
 
 public abstract class AbstractPiece implements Pieces {
+	
+	Couleur couleur;
+	Coord coord;
+	String name;
+	
+	public AbstractPiece(Couleur couleur, Coord coord) {
+		this.couleur = couleur;
+		this.coord = coord;
+	}
 
 	@Override
 	public boolean capture() {
@@ -10,26 +19,22 @@ public abstract class AbstractPiece implements Pieces {
 
 	@Override
 	public Couleur getCouleur() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.couleur;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.coord.x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.coord.y;
 	}
 
 	@Override
@@ -43,6 +48,14 @@ public abstract class AbstractPiece implements Pieces {
 	public boolean move(int xFinal, int yFinal) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public String toString() {
+		return this.name + " en " + this.coord.x + "." + this.coord.y;
+	}
+	
+	public void main() {
+		Pieces maTour = new Tour(Couleur.NOIR, new Coord(0, 0));
 	}
 
 }
