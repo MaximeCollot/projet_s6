@@ -1,4 +1,5 @@
 package model;
+import java.util.LinkedList;
 import java.util.List;
 
 import tools.ChessPiecesFactory;
@@ -88,10 +89,41 @@ public class Jeu extends java.lang.Object implements Game{
 	public void setCastling(){
 	//TODO
 	}
-	//public java.util.List<PieceIHMs> getPiecesIHM(){
-	//TODO
-	//}
+	private Pieces findPiece(int x, int y)
+	{
+		Pieces lapiece = null;
+		for (Pieces piece  : pieces)
+			if (piece.getX()== x && piece.getY()==y)
+				lapiece = piece;
+		return lapiece;
+	}
+	
+	
+	/**
+	   * @return une version réduite de la liste des pièces en cours
+	   * ne donnant que des accès en lecture sur des PieceIHMs
+	* (type piece + couleur + coordonnées)
+	   */
+	public List<PieceIHMs> getPiecesIHM(){
+		PieceIHMs newPieceIHM = null;
+		List<PieceIHMs> list = new LinkedList<PieceIHMs>();
+		for (Pieces piece : pieces){
+		// si la pièce est toujours en jeu
+		if (piece.getX() != -1){
+			newPieceIHM = new PieceIHM(piece);
+			list.add(newPieceIHM);
+		}
+		}
+		return list;
+	}
+
+	
 	public static void main(java.lang.String[] args){
+		Jeu jeu = new Jeu(Couleur.BLANC);
+		System.out.println("\t" + jeu.toString());
+		System.out.println(jeu.findPiece(0, 0));
+		System.out.println(jeu.findPiece(0, 7));		
+		
 		
 	}
 
