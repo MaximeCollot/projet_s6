@@ -3,7 +3,7 @@ package model;
 public class Tour extends AbstractPiece {
 	
 	
-	Tour(Couleur couleur, Coord coord) {
+	public Tour(Couleur couleur, Coord coord) {
 		super(couleur, coord);
 		this.name = "Tour";		
 	}
