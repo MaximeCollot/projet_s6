@@ -5,7 +5,6 @@ public abstract class AbstractPiece implements Pieces {
 	Couleur couleur;
 	Coord coord;
 	String name;
-	String test;
 	
 	public AbstractPiece(Couleur couleur, Coord coord) {
 		this.couleur = couleur;
@@ -47,16 +46,22 @@ public abstract class AbstractPiece implements Pieces {
 
 	@Override
 	public boolean move(int xFinal, int yFinal) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isCatchOk = true; //Tester si y'a une pièce
+		if (isMoveOk(xFinal, yFinal, isCatchOk, false)) {
+			this.coord = new Coord(xFinal, yFinal);
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public String toString() {
 		return this.name + " en " + this.coord.x + "." + this.coord.y;
 	}
 	
-	public void main() {
+	public static void main(String[] args) {
 		Pieces maTour = new Tour(Couleur.NOIR, new Coord(0, 0));
+		System.out.println(maTour);
 	}
 
 }
