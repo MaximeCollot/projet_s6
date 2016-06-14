@@ -2,11 +2,13 @@ package vue;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
+
 import javax.swing.*;
 
 import controler.ChessGameControlers;
 import model.Couleur;
 import tools.ChessImageProvider;
+import tools.ChessPiecePos;
 
 public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.MouseListener, java.awt.event.MouseMotionListener, java.util.Observer{
 
@@ -17,56 +19,75 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 	int yAdjustment;
 	 
 	public ChessGameGUI(String string, ChessGameControlers chessGameControler, Dimension dim) {
+		Dimension boardSize = dim;
 		 
-		 Dimension boardSize = dim;
+		//  Use a Layered Pane for this this application
+		layeredPane = new JLayeredPane();
+		getContentPane().add(layeredPane);
+		layeredPane.setPreferredSize(boardSize);
+		layeredPane.addMouseListener(this);
+		layeredPane.addMouseMotionListener(this);
+		
+		//Add a chess board to the Layered Pane 
+		chessBoard = new JPanel();
+		layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
+		chessBoard.setLayout( new GridLayout(8, 8) );
+		chessBoard.setPreferredSize( boardSize );
+		chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
+		
+		for (int i = 0; i < 64; i++) {
+		JPanel square = new JPanel( new BorderLayout() );
+		chessBoard.add( square );
 		 
-		  //  Use a Layered Pane for this this application
-		 layeredPane = new JLayeredPane();
-		  getContentPane().add(layeredPane);
-		  layeredPane.setPreferredSize(boardSize);
-		  layeredPane.addMouseListener(this);
-		  layeredPane.addMouseMotionListener(this);
-
-		  //Add a chess board to the Layered Pane 
-		  chessBoard = new JPanel();
-		  layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
-		  chessBoard.setLayout( new GridLayout(8, 8) );
-		  chessBoard.setPreferredSize( boardSize );
-		  chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
+		int row = (i / 8) % 2;
+		if (row == 0)
+		square.setBackground( i % 2 == 0 ? Color.DARK_GRAY : Color.LIGHT_GRAY);
+		else
+		square.setBackground( i % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY );
+		}
 		 
-		  for (int i = 0; i < 64; i++) {
-		  JPanel square = new JPanel( new BorderLayout() );
-		  chessBoard.add( square );
+		//Add a few pieces to the board
+		JLabel piece; 
+		JPanel panel;
+		int position, x, y, pivot = 0;
+		Couleur couleur = Couleur.BLANC;
+		for (int i = 0; i < ChessPiecePos.values().length; i++) {
+			String nom = ChessPiecePos.values()[i].name() + "  " + ChessPiecePos.values()[i].nom;
+			for (int j = 0; j < (ChessPiecePos.values()[i].coords).length; j++) {
+				if (pivot == 16)
+					couleur = Couleur.NOIR;
+				piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(ChessPiecePos.values()[i].nom, couleur)));
+				x = ChessPiecePos.values()[i].coords[j].x;
+				y = ChessPiecePos.values()[i].coords[j].y;
+				position = x + 8*y;
+				panel = (JPanel)chessBoard.getComponent(position);
+				panel.add(piece);	
+				pivot++;
+			}
+		}
 		 
-		  int row = (i / 8) % 2;
-		  if (row == 0)
-		  square.setBackground( i % 2 == 0 ? Color.DARK_GRAY : Color.LIGHT_GRAY);
-		  else
-		  square.setBackground( i % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY );
-		  }
-		 
-		  //Add a few pieces to the board
-		 
-		  JLabel piece = new JLabel( new ImageIcon(ChessImageProvider.getImageFile("Cavalier", Couleur.BLANC)) );
-		  JPanel panel = (JPanel)chessBoard.getComponent(0);
-		  panel.add(piece);
-		  piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile("Pion", Couleur.BLANC)));
-		  panel = (JPanel)chessBoard.getComponent(15);
-		  panel.add(piece);
-		  piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile("Cavalier", Couleur.NOIR)));
-		  panel = (JPanel)chessBoard.getComponent(16);
-		  panel.add(piece);
-		  piece = new JLabel(new ImageIcon("/Users/Rudy_DEAL/tourNoireS.png"));
-		  panel = (JPanel)chessBoard.getComponent(20);
-		  panel.add(piece);
-		  chessBoard.repaint();
-		  
+//		JLabel piece = new JLabel( new ImageIcon(ChessImageProvider.getImageFile("Cavalier", Couleur.BLANC)) );
+//		JPanel panel = (JPanel)chessBoard.getComponent(0);
+//		panel.add(piece);
+//		piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile("Pion", Couleur.BLANC)));
+//		panel = (JPanel)chessBoard.getComponent(15);
+//		panel.add(piece);
+//		piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile("Cavalier", Couleur.NOIR)));
+//		panel = (JPanel)chessBoard.getComponent(16);
+//		panel.add(piece);
+//		piece = new JLabel(new ImageIcon("/Users/Rudy_DEAL/tourNoireS.png"));
+//		panel = (JPanel)chessBoard.getComponent(20);
+//		panel.add(piece);
+		chessBoard.repaint();
+  
 		 
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		this.invalidate();
+		this.validate();
+		this.repaint();
 		
 	}
 
