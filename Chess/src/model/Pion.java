@@ -16,7 +16,7 @@ public class Pion extends AbstractPiece {
 		}
 					
 		else if (xFinal==this.getX() && yFinal==(this.getY()+1))
-			// deplacement normal en avençant
+			// deplacement normal en avançant
 			moveOk = true;
 		
 		else if (this.getY()==1)

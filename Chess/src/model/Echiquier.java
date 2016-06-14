@@ -5,32 +5,55 @@ import java.util.List;
 
 public class Echiquier implements BoardGames {
 	
-	Jeu jeuBlanc, jeuNoir, jeuCourant;
+	Jeu jeuBlanc, jeuNoir, jeuCourant, jeuAdverse;
 	String message;	
 	
 	public Echiquier() {
 		this.jeuBlanc = new Jeu(Couleur.BLANC);
 		this.jeuNoir = new Jeu(Couleur.NOIR);
 		this.jeuCourant = jeuBlanc;
+		this.jeuAdverse = jeuNoir;
 	}
 	
 	public void switchJoueur() {
-		if (jeuCourant.getCouleur() == Couleur.BLANC) {
-			jeuCourant = jeuNoir;
-		}else{
-			jeuCourant = jeuBlanc;
-		}
+		Jeu jeuTemp = jeuAdverse;
+		jeuAdverse = jeuCourant;
+		jeuCourant = jeuTemp;
 		setMessage("Changement de joueur");
+	}
+	
+	public boolean isMoveOk(int xInit, int yInit, int xFinal, int yFinal) {
+		boolean moveIsOk = false;
+		//test s'il n'existe pas de piece du jeu courant aux coordonnées initiales
+		if (jeuCourant.isPieceHere(xInit, yInit)){ 
+			//test si les coordonnées finales ne sont pas valides ou égales aux initiales
+			if (VerifBord.isOk(xFinal, yFinal)&&(xInit!=xFinal)&&(yInit!=yFinal)){
+				//test si position finale ne correspond pas à algo de déplacement piece
+				if (jeuCourant.isMoveOk(xInit, yInit, xFinal, yFinal, jeuCourant.capture(xFinal, yFinal), true)) {
+					//test s'il existe une piéce intermédiaire sur la trajectoire
+					if (true) {
+						//test s'il existe une piéce positionnées aux coordonnées finales
+						if (!jeuCourant.isPieceHere(xFinal, yFinal)) {  //ajouter test pour roque danse else
+							// test s'il est possible de capturer
+							if (jeuAdverse.isPieceHere(xFinal, yFinal)) {
+								jeuAdverse.move(xFinal, yFinal, -1, -1);
+								jeuCourant.move(xInit, yInit, xFinal, yFinal);
+							}else{
+								jeuCourant.move(xInit, yInit, xFinal, yFinal);
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		return moveIsOk;
 	}
 
 	@Override
 	public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
 		boolean moveIsOK = false;
-		if (jeuCourant.getCouleur() == Couleur.BLANC){
-			moveIsOK = jeuBlanc.move(xInit, yInit, xFinal, yFinal);
-		}else{
-			moveIsOK = jeuNoir.move(xInit, yInit, xFinal, yFinal);
-		}
+		moveIsOK = jeuCourant.move(xInit, yInit, xFinal, yFinal);
 		if (moveIsOK){
 			setMessage("Déplacement effectué");
 		}else{

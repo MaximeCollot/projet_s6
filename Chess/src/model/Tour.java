@@ -15,12 +15,9 @@ public class Tour extends AbstractPiece {
 			//gestion du Castling 
 			//TODO
 		}
-		
-		if (!VerifBord.isOk(xFinal, yFinal))
-			return false;
 		if ((xFinal==this.getX() || yFinal==this.getY())&& !(xFinal==this.getX() && yFinal==this.getY()))
-					return true;
-			else
-				return false;
+				return true;
+		else
+			return false;
 		}
 }

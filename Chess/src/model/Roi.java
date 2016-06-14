@@ -13,7 +13,7 @@ public class Roi extends AbstractPiece {
 		if (isCastlingPossible){
 			return true;
 		}else{
-			if (((xFinal == this.coord.x++)||(xFinal == this.coord.x--)||(xFinal == this.coord.x))&&((yFinal == this.coord.y++)||(yFinal == this.coord.y--)||(yFinal == this.coord.y))&&VerifBord.isOk(xFinal,yFinal)){
+			if (((xFinal == this.coord.x++)||(xFinal == this.coord.x--)||(xFinal == this.coord.x))&&((yFinal == this.coord.y++)||(yFinal == this.coord.y--)||(yFinal == this.coord.y))){
 				return true;
 			}else{
 				return false;
