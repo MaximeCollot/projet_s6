@@ -8,10 +8,13 @@ public class Jeu extends java.lang.Object implements Game{
 	
 	List<Pieces> pieces;
 	Couleur couleur;
+	boolean isCatchOk,isCastlingPossible;
 	
 	public Jeu (Couleur couleur){
 		this.pieces = ChessPiecesFactory.newPieces(couleur);
 		this.couleur=couleur;
+		this.isCatchOk=true;//TODO à setter dans le capture
+		this.isCastlingPossible=false;//TODO à redefinir pas en dure
 	}
 
 	@Override
@@ -32,13 +35,6 @@ public class Jeu extends java.lang.Object implements Game{
 
 	@Override
 	public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
-		boolean isCatchOk,isCastlingPossible;
-		if (capture(xFinal,yFinal)){
-			isCatchOk= true;			
-		}
-		else 
-			isCatchOk = false;
-		isCastlingPossible = true; //TODO CaslingPossible
 		if(isMoveOk(xInit, yInit, xFinal, yFinal, isCatchOk, isCastlingPossible)){
 			return this.findPiece(xInit,yInit).move(xFinal, yFinal);
 		}
@@ -47,7 +43,7 @@ public class Jeu extends java.lang.Object implements Game{
 
 	@Override
 	public boolean capture(int xCatch, int yCatch) {
-		// TODO Auto-generated method stub
+		// TODO on set capture
 		return false;
 	}
 	
