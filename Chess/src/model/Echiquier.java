@@ -1,5 +1,8 @@
 package model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Echiquier implements BoardGames {
 	
 	Jeu jeuBlanc, jeuNoir, jeuCourant;
@@ -22,12 +25,18 @@ public class Echiquier implements BoardGames {
 
 	@Override
 	public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
+		boolean moveIsOK = false;
 		if (jeuCourant.getCouleur() == Couleur.BLANC){
-			
+			moveIsOK = jeuBlanc.move(xInit, yInit, xFinal, yFinal);
+		}else{
+			moveIsOK = jeuNoir.move(xInit, yInit, xFinal, yFinal);
 		}
-		// test piece couleur joueur courant
-		// TODO Auto-generated method stub
-		return false;
+		if (moveIsOK){
+			setMessage("Déplacement effectué");
+		}else{
+			setMessage("Déplacement refusé");
+		}
+		return moveIsOK;
 	}
 
 	@Override
@@ -52,8 +61,20 @@ public class Echiquier implements BoardGames {
 
 	@Override
 	public Couleur getPieceColor(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		Couleur laCouleur;
+		if (jeuCourant.getCouleur() == Couleur.BLANC) {
+			laCouleur = jeuBlanc.getPieceColor(x, y);
+		}else{
+			laCouleur = jeuNoir.getPieceColor(x, y);
+		}
+		return laCouleur;
+	}
+	
+	public List<PieceIHMs> getPiecesIHM() {
+		List<PieceIHMs> listPieces = new LinkedList<PieceIHMs>();
+		listPieces.addAll(jeuBlanc.getPiecesIHM());
+		listPieces.addAll(jeuNoir.getPiecesIHM());
+		return listPieces;		
 	}
 	
 	public String toString() {
@@ -67,6 +88,12 @@ public class Echiquier implements BoardGames {
 		echiquier.switchJoueur();
 		System.out.println(echiquier.getMessage());
 		System.out.println("joueur courant : " + echiquier.getColorCurrentPlayer());
+		echiquier.move(0, 1, 0, 2);
+		System.out.println(echiquier.getMessage());
+		echiquier.move(1, 1, 0, 4);
+		System.out.println(echiquier.getMessage());
+		System.out.println(echiquier);
+		System.out.println(echiquier.getPiecesIHM());
 		
 		
 	}
