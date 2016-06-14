@@ -16,9 +16,8 @@ public class Jeu extends java.lang.Object implements Game{
 
 	@Override
 	public boolean isPieceHere(int x, int y) {
-		for (Pieces piece  : pieces)
-			if (piece.getX()== x && piece.getY()==y)
-				return true;			
+		if (this.findPiece(x, y) != null)
+			return true;
 		return false;
 	}
 
@@ -26,9 +25,7 @@ public class Jeu extends java.lang.Object implements Game{
 	public boolean isMoveOk(int xInit, int yInit, int xFinal, int yFinal, boolean isCatchOk, 
 			boolean isCastlingPossible) {
 		if(isPieceHere(xInit, yInit)){
-			for (Pieces piece  : pieces)
-				if (piece.getX()== xInit && piece.getY()==yInit)
-					return piece.isMoveOk(xFinal, yFinal, isCatchOk, isCastlingPossible);
+					return this.findPiece(xInit, yInit).isMoveOk(xFinal, yFinal, isCatchOk, isCastlingPossible);
 		}
 		return false;
 	}
@@ -43,11 +40,7 @@ public class Jeu extends java.lang.Object implements Game{
 			isCatchOk = false;
 		isCastlingPossible = true; //TODO CaslingPossible
 		if(isMoveOk(xInit, yInit, xFinal, yFinal, isCatchOk, isCastlingPossible)){
-			for (Pieces piece  : pieces){
-				if (piece.getX()== xInit && piece.getY()==yInit){
-					return piece.move(xFinal, yFinal);
-				}
-			}
+			return this.findPiece(xInit,yInit).move(xFinal, yFinal);
 		}
 		return false;
 	}
@@ -71,15 +64,13 @@ public class Jeu extends java.lang.Object implements Game{
 		return message;
 	}
 	public Couleur getPieceColor(int x,int y){
-		for (Pieces piece  : pieces)
-			if (piece.getX()== x && piece.getY()==y)
-				return piece.getCouleur();
+		if(isPieceHere(x,y))
+			return this.findPiece(x, y).getCouleur();
 		return Couleur.NOIRBLANC;
 	}
 	public String getPieceName(int x,int y){
-		for (Pieces piece  : pieces)
-			if (piece.getX()== x && piece.getY()==y)
-				return piece.getName();
+		if(isPieceHere(x,y))
+			return this.findPiece(x, y).getName();
 		return "Error getPieceName";
 		
 	}
