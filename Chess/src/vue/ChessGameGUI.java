@@ -6,6 +6,7 @@ import java.util.Observable;
 import javax.swing.*;
 
 import controler.ChessGameControlers;
+import model.Coord;
 import model.Couleur;
 import tools.ChessImageProvider;
 import tools.ChessPiecePos;
@@ -17,8 +18,10 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 	JLabel chessPiece;
 	int xAdjustment;
 	int yAdjustment;
+	ChessGameControlers chessGameControler;
 	 
 	public ChessGameGUI(String string, ChessGameControlers chessGameControler, Dimension dim) {
+		this.chessGameControler = chessGameControler;
 		Dimension boardSize = dim;
 		 
 		//  Use a Layered Pane for this this application
@@ -65,22 +68,8 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 				pivot++;
 			}
 		}
-		 
-//		JLabel piece = new JLabel( new ImageIcon(ChessImageProvider.getImageFile("Cavalier", Couleur.BLANC)) );
-//		JPanel panel = (JPanel)chessBoard.getComponent(0);
-//		panel.add(piece);
-//		piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile("Pion", Couleur.BLANC)));
-//		panel = (JPanel)chessBoard.getComponent(15);
-//		panel.add(piece);
-//		piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile("Cavalier", Couleur.NOIR)));
-//		panel = (JPanel)chessBoard.getComponent(16);
-//		panel.add(piece);
-//		piece = new JLabel(new ImageIcon("/Users/Rudy_DEAL/tourNoireS.png"));
-//		panel = (JPanel)chessBoard.getComponent(20);
-//		panel.add(piece);
-		chessBoard.repaint();
-  
-		 
+		
+		chessBoard.repaint();		 
 	}
 	
 	@Override
@@ -133,15 +122,17 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 		 
 		  chessPiece.setVisible(false);
 		  Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
+		  
+//		  Coord coord = new Coord();
 
 		  if (c instanceof JLabel){
-		  Container parent = c.getParent();
-		  parent.remove(0);
-		  parent.add( chessPiece );
+			  Container parent = c.getParent();
+			  parent.remove(0);
+			  parent.add( chessPiece );
 		  }
 		  else {
-		  Container parent = (Container)c;
-		  parent.add( chessPiece );
+			  Container parent = (Container)c;
+			  parent.add( chessPiece );
 		  }
 		 
 		  chessPiece.setVisible(true);
