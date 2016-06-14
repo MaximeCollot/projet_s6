@@ -56,9 +56,10 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 		  piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile("Cavalier", Couleur.NOIR)));
 		  panel = (JPanel)chessBoard.getComponent(16);
 		  panel.add(piece);
-		  piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile("Cavalier", Couleur.BLANC)));
+		  piece = new JLabel(new ImageIcon("/Users/Rudy_DEAL/tourNoireS.png"));
 		  panel = (JPanel)chessBoard.getComponent(20);
 		  panel.add(piece);
+		  chessBoard.repaint();
 		  
 		 
 	}
