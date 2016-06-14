@@ -11,18 +11,29 @@ public class Pion extends AbstractPiece {
 	{	boolean moveOk = false;
 		if (isCatchOk){
 			// prise d'une piece
-			if (yFinal==(this.getY()+1)&&(xFinal==(this.getX()+1) || (xFinal==(this.getX()-1))))
-				moveOk = true;
+			if (this.getCouleur()==Couleur.BLANC&&(yFinal==(this.getY()-1))||this.getCouleur()==Couleur.NOIR&&(yFinal==(this.getY()+1)))
+				if (xFinal==(this.getX()+1) || (xFinal==(this.getX()-1)))
+					moveOk = true;
 		}
-					
-		else if (xFinal==this.getX() && yFinal==(this.getY()+1))
-			// deplacement normal en avançant
+		
+		else if ((this.getCouleur()==Couleur.BLANC)&&(yFinal==(this.getY()-1)))
 			moveOk = true;
 		
-		else if (this.getY()==1)
+		else if ((this.getCouleur()==Couleur.NOIR)&&(yFinal==(this.getY()+1)))
+			moveOk = true;
+		
+		else if ((this.getY()==1)&&(this.getCouleur()==Couleur.NOIR)) {
 			//deplacement du départ (possibilité d'avancer de 2 cases)
-			if (yFinal==(this.getY())&&(xFinal==(this.getX()+2) || (xFinal==(this.getX()-1))))
+			if ((xFinal==(this.getX()))&&(yFinal==(this.getY()+2)))
 				moveOk = true;
+		}
+		
+		else if ((this.getY()==6)&&(this.getCouleur()==Couleur.BLANC)) {
+			//deplacement du départ (possibilité d'avancer de 2 cases)
+			if ((xFinal==(this.getX()))&&(yFinal==(this.getY()-2)))
+				moveOk = true;
+		}
+		
 		return moveOk;
 	 	}
 	

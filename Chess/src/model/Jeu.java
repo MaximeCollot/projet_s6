@@ -13,7 +13,7 @@ public class Jeu extends java.lang.Object implements Game{
 	public Jeu (Couleur couleur){
 		this.pieces = ChessPiecesFactory.newPieces(couleur);
 		this.couleur=couleur;
-		this.isCatchOk=true;//TODO à setter dans le capture
+		this.isCatchOk=false;//TODO à setter dans le capture
 		this.isCastlingPossible=false;//TODO à redefinir pas en dure
 	}
 
