@@ -8,30 +8,22 @@ public class Pion extends AbstractPiece {
 	
 	@Override
 	public boolean isMoveOk(int xFinal, int yFinal,boolean isCatchOk,boolean isCastlingPossible)
-	{	
-		if (!VerifBord.isOk(xFinal, yFinal))
-			return false;
-		if (xFinal==this.getX() && yFinal==this.getY())
-			//meme position interdite
-			return false;
-		
-		else if (isCatchOk){
-			// prise d'un pion
+	{	boolean moveOk = false;
+		if (isCatchOk){
+			// prise d'une piece
 			if (yFinal==(this.getY()+1)&&(xFinal==(this.getX()+1) || (xFinal==(this.getX()-1))))
-				return true;
-			else
-				return false;
+				moveOk = true;
 		}
 					
 		else if (xFinal==this.getX() && yFinal==(this.getY()+1))
 			// deplacement normal en avençant
-				return true;
+			moveOk = true;
 		
 		else if (this.getY()==1)
 			//deplacement du départ (possibilité d'avancer de 2 cases)
 			if (yFinal==(this.getY())&&(xFinal==(this.getX()+2) || (xFinal==(this.getX()-1))))
-				return true;
-		return false;
+				moveOk = true;
+		return moveOk;
 	 	}
 	
 }

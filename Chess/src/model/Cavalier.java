@@ -10,7 +10,6 @@ public class Cavalier extends AbstractPiece {
 	@Override
 	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk,
 			boolean isCastlingPossible) {
-		if (VerifBord.isOk(xFinal, yFinal)){
 			int diffX,diffY;
 			diffX = xFinal-this.coord.x;
 			diffY = yFinal-this.coord.y;
@@ -19,9 +18,5 @@ public class Cavalier extends AbstractPiece {
 			}else{
 				return false;
 			}
-		}else{
-			return false;
-		}
 	}
-
 }
