@@ -78,7 +78,7 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// On récupère la liste de pièces
+		// On rï¿½cupï¿½re la liste de piï¿½ces
 		List<PieceIHM> piecesIHM = (List<PieceIHM>) arg;
 		chessBoard.removeAll();
 		
@@ -100,7 +100,7 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 		square.setBackground( i % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY );
 		}
 		
-		//On crée chaque pièce contenu dans la liste et on l'ajoute
+		//On crï¿½e chaque piï¿½ce contenu dans la liste et on l'ajoute
 		JLabel piece; 
 		JPanel panel;
 		int position, x, y;
@@ -167,12 +167,8 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 		yFinal = (e.getY()*8/(int)boardSize.getHeight());
 		boolean moveOk = chessGameControler.move(new Coord(xInit,yInit), new Coord(xFinal,yFinal));
 		System.out.println(moveOk);
-		if (moveOk){
-			chessPiece.setLocation(xFinal*((int)(boardSize.getWidth()/8) + xAdjustment), (int)(yFinal*(boardSize.getHeight()/8) + yAdjustment));
-			chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
-		}else{
-			chessPiece.setLocation(xInit*((int)(boardSize.getWidth()/8) + xAdjustment), (int)(yInit*(boardSize.getHeight()/8) + yAdjustment));
-			chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+		if (!moveOk) {
+			c = chessBoard.findComponentAt(xInit*((int)(boardSize.getWidth()/8)), yInit*((int)(boardSize.getHeight()/8)));
 		}
 		if (c instanceof JLabel){
 			Container parent = c.getParent();
