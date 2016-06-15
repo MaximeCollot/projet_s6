@@ -1,6 +1,7 @@
 package vue;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.Observable;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import javax.swing.*;
 import controler.ChessGameControlers;
 import model.Coord;
 import model.Couleur;
+import model.PieceIHM;
 import tools.ChessImageProvider;
 import tools.ChessPiecePos;
 
@@ -33,12 +35,59 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 		layeredPane.addMouseListener(this);
 		layeredPane.addMouseMotionListener(this);
 		
-		//Add a chess board to the Layered Pane 
+//		//Add a chess board to the Layered Pane 
 		chessBoard = new JPanel();
 		layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
 		chessBoard.setLayout( new GridLayout(8, 8) );
 		chessBoard.setPreferredSize( boardSize );
 		chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
+//		
+//		for (int i = 0; i < 64; i++) {
+//		JPanel square = new JPanel( new BorderLayout() );
+//		chessBoard.add( square );
+//		 
+//		int row = (i / 8) % 2;
+//		if (row == 0)
+//		square.setBackground( i % 2 == 0 ? Color.DARK_GRAY : Color.LIGHT_GRAY);
+//		else
+//		square.setBackground( i % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY );
+//		}
+		 
+//		//Add a few pieces to the board
+//		JLabel piece; 
+//		JPanel panel;
+//		int position, x, y, pivot = 0;
+//		Couleur couleur = Couleur.BLANC;
+//		// Utilise list Piece IHM puis mettre dans update
+//		for (int i = 0; i < ChessPiecePos.values().length; i++) {
+//			String nom = ChessPiecePos.values()[i].name() + "  " + ChessPiecePos.values()[i].nom;
+//			for (int j = 0; j < (ChessPiecePos.values()[i].coords).length; j++) {
+//				if (pivot == 16)
+//					couleur = Couleur.NOIR;
+//				piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(ChessPiecePos.values()[i].nom, couleur)));
+//				x = ChessPiecePos.values()[i].coords[j].x;
+//				y = ChessPiecePos.values()[i].coords[j].y;
+//				position = x + 8*y;
+//				panel = (JPanel)chessBoard.getComponent(position);
+//				panel.add(piece);	
+//				pivot++;
+//			}
+//		}
+		layeredPane.repaint();
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		// On récupère la liste de pièces
+		List<PieceIHM> piecesIHM = (List<PieceIHM>) arg;
+		chessBoard.removeAll();
+		
+		//Add a chess board to the Layered Pane 
+//		chessBoard = new JPanel();
+//		layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
+//		chessBoard.setLayout( new GridLayout(8, 8) );
+//		chessBoard.setPreferredSize( boardSize );
+//		chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
 		
 		for (int i = 0; i < 64; i++) {
 		JPanel square = new JPanel( new BorderLayout() );
@@ -50,36 +99,20 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 		else
 		square.setBackground( i % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY );
 		}
-		 
-		//Add a few pieces to the board
+		
+		//On crée chaque pièce contenu dans la liste et on l'ajoute
 		JLabel piece; 
 		JPanel panel;
-		int position, x, y, pivot = 0;
-		Couleur couleur = Couleur.BLANC;
-		// Utilise list Piece IHM puis mettre dans update
-		for (int i = 0; i < ChessPiecePos.values().length; i++) {
-			String nom = ChessPiecePos.values()[i].name() + "  " + ChessPiecePos.values()[i].nom;
-			for (int j = 0; j < (ChessPiecePos.values()[i].coords).length; j++) {
-				if (pivot == 16)
-					couleur = Couleur.NOIR;
-				piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(ChessPiecePos.values()[i].nom, couleur)));
-				x = ChessPiecePos.values()[i].coords[j].x;
-				y = ChessPiecePos.values()[i].coords[j].y;
-				position = x + 8*y;
-				panel = (JPanel)chessBoard.getComponent(position);
-				panel.add(piece);	
-				pivot++;
-			}
-		}
-		chessBoard.repaint();		 
-	}
-	
-	@Override
-	public void update(Observable o, Object arg) {
-		this.invalidate();
-		this.validate();
-		this.repaint();
+		int position, x, y;
 		
+		for(PieceIHM pieceIHM : piecesIHM) {
+			piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(pieceIHM.getNamePiece(), pieceIHM.getCouleur())));
+			position = pieceIHM.getX() + 8*pieceIHM.getY();
+			panel = (JPanel)chessBoard.getComponent(position);
+			panel.add(piece);
+					
+		}
+		chessBoard.repaint();
 	}
 
 	@Override

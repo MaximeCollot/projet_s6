@@ -78,11 +78,10 @@ public class Jeu extends java.lang.Object implements Game{
 	}
 	private Pieces findPiece(int x, int y)
 	{
-		Pieces lapiece = null;
 		for (Pieces piece  : pieces)
 			if (piece.getX()== x && piece.getY()==y)
-				lapiece = piece;
-		return lapiece;
+				return piece;
+		return null;
 	}
 	
 	

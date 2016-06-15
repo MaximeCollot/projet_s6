@@ -44,6 +44,7 @@ public class ChessGameCmdLine implements Observer{
 		
 		// création d'un tableau 2D avec les noms des pièces
 		for(PieceIHM pieceIHM : piecesIHM) {
+			System.out.println(pieceIHM);
 
 			Couleur color = pieceIHM.getCouleur();
 			String stColor = (Couleur.BLANC == color ? "B_" : "N_" );
