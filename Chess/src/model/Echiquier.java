@@ -27,7 +27,7 @@ public class Echiquier implements BoardGames {
 		//test si les coordonnées finales ne sont pas valides ou égales aux initiales
 		if ((jeuCourant.isPieceHere(xInit, yInit)&&!jeuCourant.isPieceHere(xFinal, yFinal))&&(VerifBord.isOk(xFinal, yFinal)&&((xInit!=xFinal)||(yInit!=yFinal)))){
 			//test s'il existe une piéce intermédiaire sur la trajectoire
-			if (true){
+			if (!(this.collide(xInit, yInit, xFinal, yFinal))){
 				//test si position finale ne correspond pas à algo de déplacement piece
 				if (jeuCourant.isMoveOk(xInit, yInit, xFinal, yFinal, this.captureEch2(xFinal, yFinal), true)) {
 					this.jeuAdverse.setPossibleCapture();
@@ -75,6 +75,33 @@ public class Echiquier implements BoardGames {
 				captureOk = true;
 			
 		return captureOk;
+	}
+	
+	//fonction de vérification de pièce intermédiaire
+	public boolean collide (int xInit, int yInit, int xFinal, int yFinal) {
+		System.out.println("xInit : " + xInit + ", yInit : " + yInit + ", xFinal : " + xFinal + ", yFinal : " + yFinal);
+		int xDiff = xFinal - xInit;
+		int yDiff = yFinal - yInit;
+		System.out.println("xDiff : " + xDiff + ", yDiff : " + yDiff);
+		if (xDiff!=0||yDiff!=0||xDiff==yDiff){
+			while(xDiff!=0||yDiff!=0){
+				if (xDiff<0)
+					xDiff++;
+				if (xDiff>0)
+					xDiff--;
+				if (yDiff<0)
+					yDiff++;
+				if (yDiff>0)
+					yDiff--;
+				if (!(xDiff==0&&yDiff==0))
+					if (jeuCourant.isPieceHere(xInit+xDiff, yInit+yDiff)||jeuAdverse.isPieceHere(xInit+xDiff, yInit+yDiff))
+						return true;
+
+				System.out.println("test sur : " + (xInit+xDiff) + ";" + (yInit+yDiff));
+			System.out.println("xDiff : " + xDiff + ", yDiff : " + yDiff);
+			}
+		}
+		return false;
 	}
 	
 
