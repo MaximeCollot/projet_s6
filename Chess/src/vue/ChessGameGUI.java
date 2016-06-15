@@ -118,8 +118,8 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (chessPiece == null) return;
-		 chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-		 }		 
+		chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+	}		 
 		  //Drop the chess piece back onto the chess board
 
 	@Override
@@ -156,36 +156,35 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if(chessPiece == null) return;
+		
+		chessPiece.setVisible(false);
+		Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
+		
+		Point parentLocation = c.getParent().getLocation();
+		xAdjustment = parentLocation.x - e.getX();
+		yAdjustment = parentLocation.y - e.getY();
+		xFinal = (e.getX()*8/(int)boardSize.getWidth());
+		yFinal = (e.getY()*8/(int)boardSize.getHeight());
+		boolean moveOk = chessGameControler.move(new Coord(xInit,yInit), new Coord(xFinal,yFinal));
+		System.out.println(moveOk);
+		if (moveOk){
+			chessPiece.setLocation(xFinal*((int)(boardSize.getWidth()/8) + xAdjustment), (int)(yFinal*(boardSize.getHeight()/8) + yAdjustment));
+			chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+		}else{
+			chessPiece.setLocation(xInit*((int)(boardSize.getWidth()/8) + xAdjustment), (int)(yInit*(boardSize.getHeight()/8) + yAdjustment));
+			chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+		}
+		if (c instanceof JLabel){
+			Container parent = c.getParent();
+			parent.remove(0);
+			parent.add( chessPiece );
+		}
+		else {
+			Container parent = (Container)c;
+			parent.add( chessPiece );
+		}
 		 
-		  chessPiece.setVisible(false);
-		  Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
-		  
-		  Point parentLocation = c.getParent().getLocation();
-		  xFinal = (e.getX()*8/(int)boardSize.getWidth());
-		  yFinal = (e.getY()*8/(int)boardSize.getWidth());
-		  boolean moveOk = chessGameControler.move(new Coord(xInit,yInit), new Coord(xFinal,yFinal));
-		  System.out.println(moveOk);
-		  if (moveOk){
-			  if (c instanceof JLabel){
-				  Container parent = c.getParent();
-				  
-				  parent.remove(0);
-				  parent.add( chessPiece );
-			  }
-			  else {
-				  Container parent = (Container)c;
-				  JPanel gParent = (JPanel)parent.getParent();
-				  parent.add( chessPiece );
-			  }
-		  }else{
-			  chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-			  chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
-			  Container parent = (Container)c;
-			  JPanel gParent = (JPanel)parent.getParent();
-			  parent.add( chessPiece );
-		  }
-		 
-		  chessPiece.setVisible(true);
+		chessPiece.setVisible(true);
 		  
 		
 	}
