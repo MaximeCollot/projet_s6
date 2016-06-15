@@ -16,19 +16,19 @@ public class Pion extends AbstractPiece {
 					moveOk = true;
 		}
 		
-		else if ((this.getCouleur()==Couleur.BLANC)&&(yFinal==(this.getY()-1)))
+		if ((this.getCouleur()==Couleur.BLANC)&&(yFinal==(this.getY()-1)&&(xFinal==(this.getX()))))
 			moveOk = true;
 		
-		else if ((this.getCouleur()==Couleur.NOIR)&&(yFinal==(this.getY()+1)))
+		else if ((this.getCouleur()==Couleur.NOIR)&&(yFinal==(this.getY()+1))&&(xFinal==(this.getX())))
 			moveOk = true;
 		
-		else if ((this.getY()==1)&&(this.getCouleur()==Couleur.NOIR)) {
+		else if ((this.getY()==1)&&(this.getCouleur()==Couleur.NOIR)&&(xFinal==(this.getX()))) {
 			//deplacement du départ (possibilité d'avancer de 2 cases)
 			if ((xFinal==(this.getX()))&&(yFinal==(this.getY()+2)))
 				moveOk = true;
 		}
 		
-		else if ((this.getY()==6)&&(this.getCouleur()==Couleur.BLANC)) {
+		else if ((this.getY()==6)&&(this.getCouleur()==Couleur.BLANC)&&(xFinal==(this.getX()))) {
 			//deplacement du départ (possibilité d'avancer de 2 cases)
 			if ((xFinal==(this.getX()))&&(yFinal==(this.getY()-2)))
 				moveOk = true;

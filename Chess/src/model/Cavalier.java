@@ -13,7 +13,8 @@ public class Cavalier extends AbstractPiece {
 			int diffX,diffY;
 			diffX = xFinal-this.coord.x;
 			diffY = yFinal-this.coord.y;
-			if ((diffX==2||diffY==2)&&(Math.abs(diffX-diffY)==1)){
+			//if ((diffX==2||diffY==2)&&(Math.abs(diffX-diffY)==1)){
+			if ((Math.abs(diffX)==2&&Math.abs(diffY)==1)||(Math.abs(diffX)==1&&Math.abs(diffY)==2)){
 				return true;
 			}else{
 				return false;
