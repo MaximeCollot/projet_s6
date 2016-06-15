@@ -138,19 +138,19 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 	public void mousePressed(MouseEvent e) {
 		chessPiece = null;
 		Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
-		if (c instanceof JPanel)
-			return;
-		
-		Point parentLocation = c.getParent().getLocation();
-		xAdjustment = parentLocation.x - e.getX();
-		yAdjustment = parentLocation.y - e.getY();
 		xInit = (e.getX()*8/(int)boardSize.getWidth());
 		yInit = (e.getY()*8/(int)boardSize.getHeight());
-		chessPiece = (JLabel)c;
-		chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-		chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
-		layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
-		
+		if (c instanceof JPanel)
+			return;
+		if (chessGameControler.isPlayerOK(new Coord(xInit,yInit))){
+			Point parentLocation = c.getParent().getLocation();
+			xAdjustment = parentLocation.x - e.getX();
+			yAdjustment = parentLocation.y - e.getY();
+			chessPiece = (JLabel)c;
+			chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+			chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+			layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
+		}
 	}
 
 	@Override
@@ -159,28 +159,32 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 		
 		chessPiece.setVisible(false);
 		Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
-		
-		Point parentLocation = c.getParent().getLocation();
-		xAdjustment = parentLocation.x - e.getX();
-		yAdjustment = parentLocation.y - e.getY();
 		xFinal = (e.getX()*8/(int)boardSize.getWidth());
 		yFinal = (e.getY()*8/(int)boardSize.getHeight());
 		boolean moveOk = chessGameControler.move(new Coord(xInit,yInit), new Coord(xFinal,yFinal));
 		System.out.println(moveOk);
-		if (!moveOk) {
-			c = chessBoard.findComponentAt(xInit*((int)(boardSize.getWidth()/8)), yInit*((int)(boardSize.getHeight()/8)));
-		}
-		if (c instanceof JLabel){
-			Container parent = c.getParent();
-			parent.remove(0);
-			parent.add( chessPiece );
-		}
-		else {
+		if (moveOk){
+			if (c instanceof JLabel){
+				Container parent = c.getParent();
+				parent.remove(0);
+				parent.add( chessPiece );
+			}else{
+				Container parent = (Container)c;
+				parent.add( chessPiece );
+			}
+//			chessPiece.setLocation(xFinal*((int)(boardSize.getWidth()/8) + xAdjustment), (int)(yFinal*(boardSize.getHeight()/8) + yAdjustment));
+//			chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+		}else{
+			revalidate();
+//			c = chessBoard.findComponentAt(xInit*((int)(boardSize.getWidth()/8)), yInit*((int)(boardSize.getHeight()/8)));
 			Container parent = (Container)c;
 			parent.add( chessPiece );
 		}
+		
 		 
 		chessPiece.setVisible(true);
+		chessBoard.revalidate();
+		chessBoard.repaint();
 		  
 		
 	}
