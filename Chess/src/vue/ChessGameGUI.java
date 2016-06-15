@@ -156,6 +156,7 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if(chessPiece == null) return;
+		System.out.println(e.getX() + " " + e.getY());
 		
 		chessPiece.setVisible(false);
 		Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
@@ -172,16 +173,14 @@ public class ChessGameGUI extends javax.swing.JFrame implements java.awt.event.M
 				Container parent = (Container)c;
 				parent.add( chessPiece );
 			}
-//			chessPiece.setLocation(xFinal*((int)(boardSize.getWidth()/8) + xAdjustment), (int)(yFinal*(boardSize.getHeight()/8) + yAdjustment));
-//			chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
 		}else{
-			revalidate();
-//			c = chessBoard.findComponentAt(xInit*((int)(boardSize.getWidth()/8)), yInit*((int)(boardSize.getHeight()/8)));
-			Container parent = (Container)c;
-			parent.add( chessPiece );
+			if (e.getX()>0&&e.getX()<boardSize.getWidth()&&e.getY()>0&&e.getY()<boardSize.getHeight()){
+				Container parent = (Container)c;
+				parent.add( chessPiece );
+			}
 		}
-		
-		 
+		revalidate();
+		repaint();
 		chessPiece.setVisible(true);
 		chessBoard.revalidate();
 		chessBoard.repaint();
